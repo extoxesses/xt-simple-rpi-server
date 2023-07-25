@@ -1,0 +1,137 @@
+html {
+    font-family: 'Montserrat', 'sans-serif';
+    color: #93deff;
+}
+
+body {
+    background-image: url("img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: -webkit-fill-available;
+}
+
+.monitor-container {
+    background-color: #323643;
+    position: relative;
+	min-width: 900px;
+    width: fit-content;
+	margin: 5px;
+	padding: 5px;
+}
+
+.monitor-container .title {
+    font-size: xx-large;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.subtitle {
+    background-color: #93deff;
+    color:  #323643;
+    border-radius: 10px 15px;
+    padding: 5px;
+    margin: 15px;
+	font-weight: bolder;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: row;
+	justify-content: center;
+}
+
+#links {
+	display: flex;
+	flex-direction: column;
+}
+
+.group-container {
+    margin: 4px 25px 4px 30px;
+    font-size: larger;
+}
+
+.group-name {	
+	border-top: 1px solid #93deff;
+	border-bottom: 1px solid #93deff;
+}
+
+.link {
+    margin: 4px 15px;
+    font-size: large;
+}
+
+.link a {
+    color: #93deff;
+    text-decoration: none;
+}
+
+/* --- PROGRESS BAR --- */
+
+.circle {
+	width: 200px;
+	margin: 6px 6px 20px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.circle canvas {
+	vertical-align: top;
+	width: 200px !important;
+}
+
+.circle strong {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	font-size: 30px;
+	color: black;
+}
+
+.circle-content {
+	display: flex;
+    flex-direction: column;
+	width: 100%;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    text-align: center;
+    line-height: 35px;
+	color: #ffffff;
+}
+
+.circle-content .first {
+	font-size: 15px;
+}
+
+.circle-content .second {
+	font-size: 35px;
+    color: #93deff;
+}
+
+.circle-content .third {
+	font-size: 20px;
+}
+
+.circle strong i {
+	font-style: normal;
+	font-size: 0.6em;
+	font-weight: normal;
+}
+
+.circle span {
+	display: block;
+	color: #aaa;
+	margin-top: 12px;
+}

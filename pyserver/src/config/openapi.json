@@ -1,0 +1,305 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Petstore - OpenAPI 3.0",
+    "description": "A sample RPI web Server based on the OpenAPI 3.0 specification.",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "extoxesses@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:5000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Services",
+      "description": "All servers public API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Flask",
+      "description": "Server default API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/v1/system": {
+      "get": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Get server hardware status",
+        "description": "Returns the hardware status",
+        "operationId": "getSystemStatus",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/System"
+          },
+          "500": {
+            "$ref": "#/components/responses/BaseErrorResponse"
+          }
+        }
+      }
+    },
+    "/v1/bookmarks": {
+      "get": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Get a list of usefull bookmarks related to server management",
+        "description": "A list of labeled bookmarks",
+        "operationId": "getServerBookmarks",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Bookmarks"
+          },
+          "500": {
+            "$ref": "#/components/responses/BaseErrorResponse"
+          }
+        }
+      }
+    },
+    "/v1/api/docs": {
+      "get": {
+        "tags": [
+          "Flask"
+        ],
+        "summary": "Allow to reach a \"swagger-ui\" style page",
+        "description": "Allow to reach a \"swagger-ui\" style page",
+        "operationId": "swaggerui",
+        "responses": {
+          "200": {
+            "description": "Default Flask's swagger ui page"
+          }
+        }
+      }
+    },
+    "/v1/api/docs/openapi.json": {
+      "get": {
+        "tags": [
+          "Flask"
+        ],
+        "summary": "Allow to reach a \"swagger\" structure page",
+        "description": "Allow to reach a \"swagger\" structure page",
+        "operationId": "swagger",
+        "responses": {
+          "200": {
+            "description": "Swagger yml file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "BaseErrorResponse": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "object",
+                  "description": "Response body",
+                  "example": null
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Error descripion",
+                  "example": "Error risen ..."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP response status",
+                  "example": 500
+                }
+              }
+            }
+          }
+        }
+      },
+      "Bookmarks": {
+        "description": "Bookmarks response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "array",
+                  "description": "Bookmarks list",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "Bookmark URL",
+                        "example": "http://localhost:5000/api/docs"
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Bookmark label",
+                        "example": "Bookmark"
+                      },
+                      "error": {
+                        "type": "string",
+                        "description": "Error descripion",
+                        "example": null
+                      },
+                      "status": {
+                        "type": "integer",
+                        "description": "HTTP response status",
+                        "example": 200
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "System": {
+        "description": "System status",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "object",
+                  "description": "System status",
+                  "properties": {
+                    "cpu": {
+                      "type": "object",
+                      "properties": {
+                        "usage_percent": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "CPU usage percentage",
+                          "example": 14.1
+                        },
+                        "temp": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "CPU temperature",
+                          "example": 40
+                        }
+                      }
+                    },
+                    "memory": {
+                      "$ref": "#/components/schemas/PercentageUsage"
+                    },
+                    "disk": {
+                      "$ref": "#/components/schemas/PercentageUsage"
+                    },
+                    "network": {
+                      "type": "array",
+                      "description": "List of available interfaces",
+                      "items": {
+                        "type": "object",
+                        "description": "Network interface properties",
+                        "properties": {
+                          "interface": {
+                            "type": "string",
+                            "description": "Interface name",
+                            "example": "eth0"
+                          },
+                          "speed": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Interface speed",
+                            "example": 0
+                          },
+                          "unit": {
+                            "type": "string",
+                            "description": "Interface speed unit",
+                            "example": "MB/s"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Error descripion",
+                  "example": null
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP response status",
+                  "example": 200
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "PercentageUsage": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "format": "double",
+            "description": "Total space available",
+            "example": 7.897922515869141
+          },
+          "available": {
+            "type": "number",
+            "format": "double",
+            "description": "Usable space",
+            "example": 2.1429061889648438
+          },
+          "percent": {
+            "type": "number",
+            "format": "double",
+            "description": "Usage space percentage",
+            "example": 72.9
+          },
+          "used": {
+            "type": "number",
+            "format": "double",
+            "description": "Used space",
+            "example": 5.716129302978516
+          },
+          "free": {
+            "type": "number",
+            "format": "double",
+            "description": "Free space",
+            "example": 1.9630661010742188
+          }
+        }
+      }
+    }
+  }
+}

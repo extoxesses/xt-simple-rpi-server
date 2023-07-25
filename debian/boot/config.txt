@@ -1,0 +1,5 @@
+#[pi4]
+[all]
+# Run as fast as firmware / board allows
+arm_boost=1
+dtoverlay=gpio-fan,gpiopin=18,temp=35000

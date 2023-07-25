@@ -1,0 +1,98 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<html>
+	<head>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
+		<link rel="stylesheet" href="static/style.css">
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="static/js/circle-animation.js"></script>
+		<script type="text/javascript" src="static/js/core.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="monitor-container">
+				<div class="title">THE ELAINE</div>
+			</div>
+			<div id="system" class="monitor-container">
+				<div class="subtitle">
+					<div>
+						<span><b>/system</b></span>
+					</div>
+				</div>
+				<div class="statistics">
+					<div id="cpu-stat" class="progressbar">
+						<div class="circle" data-percent="0">
+							<div class="circle-content">
+								<div class="first"><b>CPU</b> USAGE</div>
+								<div class="second"></div>
+								<div class="third"><b>TEMP:</b> 40.0°</div>
+							</div>
+						</div>
+					</div>
+					<div id="ram-stat" class="progressbar">
+						<div class="circle" data-percent="0">
+							<div class="circle-content">
+								<div class="first"><b>RAM</b> USAGE</div>
+								<div class="second"></div>
+								<div class="third"><b>Total:</b> GB</div>
+							</div>
+						</div>
+					</div>
+					<div id="disk-stat" class="progressbar">
+						<div class="circle" data-percent="0">
+							<div class="circle-content">
+								<div class="first"><b>DISK</b> USAGE</div>
+								<div class="second"></div>
+								<div class="third"><b>Total:</b> GB</div>
+							</div>
+						</div>
+					</div>
+					<div id="net-stat" class="progressbar">
+						<div class="circle" data-percent="0">
+							<div class="circle-content">
+								<div class="first"><b>NET</b> Speed</div>
+								<div class="second"></div>
+								<div class="third"><b>KB/s</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="links" class="monitor-container">
+				<div class="subtitle">
+					<div>
+						<span><b>/link</b></span>
+					</div>
+				</div>
+				<div id="links-container"></div>
+			</div>
+		</div>
+
+
+		<script src="static/js/circle-progress.js"></script>
+		<script>
+			let root = window?.location?.host
+			if (!root) {
+				root = 'http://localhost:5000'
+			}
+			
+			getSystem(root)
+				.then((data) => {
+					render(data);
+					animateElements();
+					$(window).scroll(animateElements);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			getBookmarks(root)
+				.then((data) => {
+					renderBookmarks(data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		</script>
+	</body>
+</html>
